@@ -4,12 +4,18 @@ const translations = {
         login: "CONNEXION",
         register: "S'INSCRIRE",
         search: "RECHERCHER",
-        matricule: "Matricule",
+        journal_number: "Numéro",
         partie: "Partie",
+        part1: "1ère Partie (Lois, Décrets, Arrêtés)",
+        part2: "2ème Partie (Avis, Appels d'offres, Annonces)",
+        part3: "3ème Partie (Réquisitions Domaniales)",
+        price: "Prix (Ar)",
+        details: "Détails / Complément",
         editeur: "Éditeur",
         date: "Date",
         stockage: "Stockage",
         logout: "Déconnexion",
+        theme: "Mode",
         home: "Accueil",
         dashboard: "Tableau de bord",
         stats: "Statistiques",
@@ -18,7 +24,7 @@ const translations = {
         recent_ops: "Opérations récentes",
         failed_logins: "Tentatives de connexion",
         name: "Nom",
-        cin: "CIN",
+        cin: "Matricule",
         status: "Statut",
         action: "Action",
         blocked: "Bloqué",
@@ -34,6 +40,8 @@ const translations = {
         save: "ENREGISTRER",
         date_received: "Date de réception",
         location: "Emplacement",
+        pdf_file: "Fichier PDF (Optionnel)",
+        view_pdf: "Voir PDF",
         hello: "Bonjour",
         success_save: "Journal enregistré !",
         error_label: "Erreur",
@@ -43,7 +51,7 @@ const translations = {
         user: "Utilisateur",
         operation: "Opération",
         confirm_delete: "Voulez-vous vraiment supprimer ?",
-        login_label: "Login (CIN ou Admin) :",
+        login_label: "Login (Matricule ou Admin) :",
         login_placeholder: "Entrez votre login...",
         password_label: "Mot de passe :",
         no_account: "Pas encore de compte ?",
@@ -52,8 +60,8 @@ const translations = {
         error_invalid: "Login ou mot de passe incorrect.",
         title_login: "Connexion - Gestion des Journaux",
         system_description: "Système de gestion des journaux et des archives.",
-        manage_journals_desc: "Enregistrement de tous les journaux hebdomadaires avec matricule précis.",
-        quick_search_desc: "Recherchez toutes les informations par matricule, éditeur ou date.",
+        manage_journals_desc: "Enregistrement de tous les journaux hebdomadaires avec numéro précis.",
+        quick_search_desc: "Recherchez toutes les informations par numéro de gazette, éditeur ou date.",
         statistics_desc: "Suivi du nombre de journaux et des activités de tous les utilisateurs.",
         brand_name: "GESTION JOURNAUX",
         user_management: "Gestion des Utilisateurs",
@@ -61,7 +69,7 @@ const translations = {
         user_unblocked_success: "Utilisateur débloqué avec succès.",
         user_deleted_success: "Utilisateur supprimé avec succès.",
         name_label: "Nom",
-        cin_label: "CIN (Login)",
+        cin_label: "Matricule (Login)",
         status_label: "Statut",
         action_label: "Action",
         blocked_status: "Bloqué",
@@ -75,12 +83,12 @@ const translations = {
         ip_col: "Adresse IP",
         no_journal_recorded: "Aucun journal enregistré.",
         register_title: "S'inscrire - Journal Archives",
-        cin_error_12: "Le CIN doit comporter 12 chiffres.",
-        cin_already_used: "Ce CIN est déjà utilisé.",
+        cin_error_12: "Le matricule est requis.",
+        cin_already_used: "Ce matricule est déjà utilisé.",
         nom_placeholder: "Nom...",
         prenom_label: "Prénom :",
         prenom_placeholder: "Prénom...",
-        cin_placeholder: "Exemple: 101202...",
+        cin_placeholder: "Matricule...",
         contact_placeholder: "Exemple: +261 34...",
         address_placeholder: "Lieu de résidence...",
         already_have_account: "Vous avez déjà un compte ?",
@@ -93,13 +101,15 @@ const translations = {
         total_institutions: "Institutions",
         distribution_partie: "Répartition par \"Partie\"",
         no_partie: "Sans Partie",
-        search_keyword_label: "Mots-clés (Matricule, Éditeur...)",
+        search_keyword_label: "Mots-clés (Numéro, Éditeur...)",
+        all_parties: "Toutes les parties",
         search_placeholder: "Rechercher...",
         date_received_label: "Date de réception",
-        search_button: "RECHERCHER",
+        search_button: "FILTRER",
+        clear: "Effacer",
         status_arrived: "Arrivé",
         no_results: "Aucun résultat trouvé.",
-        start_search_instruction: "Entrez le matricule ou la date que vous souhaitez consulter pour commencer la recherche.",
+        start_search_instruction: "Entrez le numéro ou la date que vous souhaitez consulter pour commencer la recherche.",
         public_archives: "ARCHIVES PUBLIQUES",
         public_archives_desc: "Recherche et consultation de tous les journaux enregistrés.",
         quick_search_label: "Recherche rapide :",
@@ -116,12 +126,18 @@ const translations = {
         login: "LOGIN",
         register: "REGISTER",
         search: "SEARCH",
-        matricule: "Matricule",
+        journal_number: "Number",
         partie: "Part",
+        part1: "1st Part (Laws, Decrees, Orders)",
+        part2: "2nd Part (Notices, Tenders, Legal Ads)",
+        part3: "3rd Part (Land Requisitions)",
+        price: "Price (Ar)",
+        details: "Details / Supplement",
         editeur: "Publisher",
         date: "Date",
         stockage: "Storage",
         logout: "Logout",
+        theme: "Mode",
         home: "Home",
         dashboard: "Dashboard",
         stats: "Statistics",
@@ -130,7 +146,7 @@ const translations = {
         recent_ops: "Recent Operations",
         failed_logins: "Login Attempts",
         name: "Name",
-        cin: "CIN",
+        cin: "Matricule",
         status: "Status",
         action: "Action",
         blocked: "Blocked",
@@ -146,6 +162,8 @@ const translations = {
         save: "SAVE",
         date_received: "Date received",
         location: "Location",
+        pdf_file: "PDF File (Optional)",
+        view_pdf: "View PDF",
         hello: "Hello",
         success_save: "Journal saved!",
         error_label: "Error",
@@ -155,7 +173,7 @@ const translations = {
         user: "User",
         operation: "Operation",
         confirm_delete: "Are you sure you want to delete?",
-        login_label: "Login (CIN or Admin):",
+        login_label: "Login (Matricule or Admin):",
         login_placeholder: "Enter your login...",
         password_label: "Password:",
         no_account: "No account yet?",
@@ -164,8 +182,8 @@ const translations = {
         error_invalid: "Invalid Login or Password.",
         title_login: "Login - Journal Management",
         system_description: "Journal and archives management system.",
-        manage_journals_desc: "Registration of all weekly journals with precise matricule.",
-        quick_search_desc: "Search all information by matricule, publisher or date.",
+        manage_journals_desc: "Registration of all weekly journals with precise number.",
+        quick_search_desc: "Search all information by gazette number, publisher or date.",
         statistics_desc: "Monitoring the number of journals and activities of all users.",
         brand_name: "JOURNAL MANAGEMENT",
         user_management: "User Management",
@@ -173,7 +191,7 @@ const translations = {
         user_unblocked_success: "User unblocked successfully.",
         user_deleted_success: "User deleted successfully.",
         name_label: "Name",
-        cin_label: "CIN (Login)",
+        cin_label: "Matricule (Login)",
         status_label: "Status",
         action_label: "Action",
         blocked_status: "Blocked",
@@ -187,14 +205,14 @@ const translations = {
         ip_col: "IP Address",
         no_journal_recorded: "No journal recorded.",
         register_title: "Register - Journal Archives",
-        cin_error_12: "CIN must be 12 digits.",
-        cin_already_used: "This CIN is already used.",
+        cin_error_12: "Matricule is required.",
+        cin_already_used: "This matricule is already used.",
         nom_placeholder: "Last Name...",
         prenom_label: "First Name:",
         prenom_placeholder: "First Name...",
-        cin_placeholder: "Example: 101202...",
-        contact_placeholder: "Example: +261 34...",
-        address_placeholder: "Residence address...",
+        cin_placeholder: "Matricule...",
+         contact_placeholder: "Example: +261 34...",
+         address_placeholder: "Residence address...",
         already_have_account: "Already have an account?",
         error_db: "Database error: ",
         stats_title: "Journal Statistics",
@@ -205,13 +223,15 @@ const translations = {
         total_institutions: "Institutions",
         distribution_partie: "Distribution by \"Part\"",
         no_partie: "No Part",
-        search_keyword_label: "Keywords (Matricule, Publisher...)",
+        search_keyword_label: "Keywords (Number, Publisher...)",
+        all_parties: "All parts",
         search_placeholder: "Search...",
         date_received_label: "Date received",
+        clear: "Clear",
         search_button: "SEARCH",
         status_arrived: "Arrived",
         no_results: "No results found.",
-        start_search_instruction: "Enter the matricule or date you want to check to start the search.",
+        start_search_instruction: "Enter the number or date you want to check to start the search.",
         public_archives: "PUBLIC ARCHIVES",
         public_archives_desc: "Search and consultation of all recorded journals.",
         quick_search_label: "Quick search:",
@@ -237,6 +257,37 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
+        });
+    }
+
+    // Sidebar Toggle for Mobile (Optional enhancement)
+    const sidebar = document.querySelector('.sidebar');
+    const mainLayout = document.querySelector('.main-layout');
+    
+    if (window.innerWidth < 768 && sidebar) {
+        // Create a toggle button for mobile if it doesn't exist
+        const toggleBtn = document.createElement('button');
+        toggleBtn.innerHTML = '☰';
+        toggleBtn.className = 'btn';
+        toggleBtn.style.position = 'fixed';
+        toggleBtn.style.bottom = '20px';
+        toggleBtn.style.right = '20px';
+        toggleBtn.style.zIndex = '1002';
+        toggleBtn.style.borderRadius = '50%';
+        toggleBtn.style.width = '50px';
+        toggleBtn.style.height = '50px';
+        toggleBtn.style.padding = '0';
+        toggleBtn.style.fontSize = '24px';
+        
+        document.body.appendChild(toggleBtn);
+        
+        toggleBtn.addEventListener('click', () => {
+            if (sidebar.style.display === 'flex') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'flex';
+                sidebar.style.width = '100%';
+            }
         });
     }
 
@@ -276,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (trans[key]) {
-                if (el.tagName === 'INPUT' && el.type === 'text') {
+                if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'number')) {
                     el.placeholder = trans[key];
                 } else {
                     el.innerText = trans[key];

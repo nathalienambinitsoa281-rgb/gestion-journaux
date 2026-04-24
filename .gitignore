@@ -1,0 +1,12 @@
+# PHP
+vendor/
+composer.lock
+.env
+
+# Project specific
+uploads/pdf/*
+!uploads/pdf/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db

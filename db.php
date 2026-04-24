@@ -1,4 +1,11 @@
 <?php
+// Session persistent - DOIT ÊTRE AVANT TOUT session_start()
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.gc_maxlifetime', 31536000); // 1 an
+    session_set_cookie_params(31536000);
+    session_start();
+}
+
 // CONFIGURATION DE LA BASE DE DONNÉES (Supporte le Local et le Serveur En Ligne)
 
 // Si on est sur Railway (En Ligne), il va lire les variables d'environnement.

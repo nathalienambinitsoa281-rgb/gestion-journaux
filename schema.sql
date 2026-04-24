@@ -19,11 +19,11 @@ CREATE TABLE `utilisateur` (
   `prenom` varchar(100) NOT NULL,
   `adresse` varchar(255) DEFAULT NULL,
   `contact` varchar(50) DEFAULT NULL,
-  `cin` char(12) NOT NULL,
+  `matricule` varchar(50) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `est_bloque` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id_utilisateur`),
-  UNIQUE KEY `cin` (`cin`)
+  UNIQUE KEY `matricule` (`matricule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -54,13 +54,16 @@ INSERT INTO `admin_logiciel` (`login`, `nom`, `mot_de_passe`) VALUES
 DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
   `id_journal` int(11) NOT NULL AUTO_INCREMENT,
-  `matricule` varchar(50) NOT NULL,
+  `matricule` int(11) NOT NULL,
   `partie` varchar(50) DEFAULT NULL,
   `editeur` varchar(255) NOT NULL,
   `lieu_edition` varchar(255) DEFAULT NULL,
   `date_edition` date DEFAULT NULL,
   `date_sortie` date DEFAULT NULL,
   `lieu_stockage` varchar(255) DEFAULT NULL,
+  `fichier_pdf` varchar(255) DEFAULT NULL,
+  `prix` decimal(10,2) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   PRIMARY KEY (`id_journal`),
   UNIQUE KEY `matricule` (`matricule`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

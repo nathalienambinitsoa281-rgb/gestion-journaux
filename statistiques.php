@@ -1,6 +1,5 @@
 <?php
 require_once 'db.php';
-include 'navigation.php';
 
 // Data for the 4 main cards
 $total_actes = $pdo->query("SELECT COUNT(*) FROM journal")->fetchColumn();
@@ -22,8 +21,7 @@ $max_count = $total_actes > 0 ? $total_actes : 1;
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: var(--primary-white); padding: 25px; border-radius: 12px; box-shadow: var(--shadow); text-align: center; border-top: 4px solid var(--primary-blue); transition: transform 0.3s; }
-        .stat-card:hover { transform: translateY(-5px); }
+        
         .stat-value { font-size: 2.5rem; font-weight: 800; color: var(--primary-blue); margin: 10px 0; }
         .stat-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
         
@@ -32,31 +30,32 @@ $max_count = $total_actes > 0 ? $total_actes : 1;
     </style>
 </head>
 <body class="animate">
+    <?php include 'navigation.php'; ?>
     <div class="container animate">
         <h2 data-i18n="stats_title">Statistiques des Journaux</h2>
         <p style="margin-bottom: 30px; opacity: 0.8;" data-i18n="stats_desc">Résumé du nombre de journaux et de leur répartition.</p>
 
         <div class="stats-grid animate">
-            <div class="stat-card">
+            <a href="liste_journaux.php" class="stat-card" style="text-decoration: none; display: block;">
                 <div class="stat-label" data-i18n="total_actes">Total Actes</div>
                 <div class="stat-value"><?php echo $total_actes; ?></div>
                 <div style="font-size: 20px;">📄</div>
-            </div>
-            <div class="stat-card" style="border-top-color: var(--secondary-orange);">
+            </a>
+            <a href="liste_journaux.php" class="stat-card" style="border-top-color: var(--secondary-orange); text-decoration: none; display: block;">
                 <div class="stat-label" data-i18n="total_journals">Journaux</div>
                 <div class="stat-value"><?php echo $total_gazety; ?></div>
                 <div style="font-size: 20px;">📗</div>
-            </div>
-            <div class="stat-card">
+            </a>
+            <a href="liste_journaux.php" class="stat-card" style="text-decoration: none; display: block;">
                 <div class="stat-label" data-i18n="total_types">Types d'actes</div>
                 <div class="stat-value"><?php echo $total_types; ?></div>
                 <div style="font-size: 20px;">🔖</div>
-            </div>
-            <div class="stat-card" style="border-top-color: var(--secondary-orange);">
+            </a>
+            <a href="liste_journaux.php" class="stat-card" style="border-top-color: var(--secondary-orange); text-decoration: none; display: block;">
                 <div class="stat-label" data-i18n="total_institutions">Institutions</div>
                 <div class="stat-value"><?php echo $total_institutions; ?></div>
                 <div style="font-size: 20px;">🏛️</div>
-            </div>
+            </a>
         </div>
 
         <div class="glass-card animate" style="animation-delay: 0.2s;">
@@ -88,5 +87,8 @@ $max_count = $total_actes > 0 ? $total_actes : 1;
         &copy; <?php echo date('Y'); ?> - <span data-i18n="footer_text">Ministère de l'Intérieur</span>
     </footer>
     <script src="js/script.js"></script>
+        </div> <!-- close page-content -->
+    </div> <!-- close main-layout -->
+</div> <!-- close app-container -->
 </body>
 </html>

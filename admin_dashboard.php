@@ -1,5 +1,4 @@
 <?php
-include 'navigation.php';
 require_once 'db.php';
 
 // Hamarino raha Admin no tafiditra
@@ -60,6 +59,7 @@ $tentatives = $pdo->query("SELECT * FROM tentatives_connexion ORDER BY date_tent
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body class="animate">
+    <?php include 'navigation.php'; ?>
     <div class="container animate">
         <h2 data-i18n="user_management">Gestion des Utilisateurs</h2>
         <p style="margin-bottom: 25px; opacity: 0.8;">Admin: <strong><?php echo $_SESSION['admin_login']; ?></strong></p>
@@ -73,7 +73,7 @@ $tentatives = $pdo->query("SELECT * FROM tentatives_connexion ORDER BY date_tent
                 <thead>
                     <tr>
                         <th data-i18n="name_label">Nom</th>
-                        <th data-i18n="cin_label">CIN (Login)</th>
+                        <th data-i18n="cin_label">CIN / Matricule (Login)</th>
                         <th data-i18n="status_label">Statut</th>
                         <th data-i18n="action_label">Action</th>
                     </tr>
@@ -82,7 +82,7 @@ $tentatives = $pdo->query("SELECT * FROM tentatives_connexion ORDER BY date_tent
                     <?php foreach ($users as $u): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($u['nom'] . ' ' . $u['prenom']); ?></td>
-                            <td><code><?php echo htmlspecialchars($u['cin']); ?></code></td>
+                            <td><code><?php echo htmlspecialchars($u['matricule']); ?></code></td>
                             <td>
                                 <?php if ($u['est_bloque']): ?>
                                     <span class="badge badge-red" data-i18n="blocked_status">Bloqué</span>
@@ -122,9 +122,19 @@ $tentatives = $pdo->query("SELECT * FROM tentatives_connexion ORDER BY date_tent
                         <tbody>
                             <?php foreach ($suivi as $s): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($s['nom'] ?? 'System'); ?></td>
-                                    <td><?php echo htmlspecialchars($s['operation']); ?></td>
-                                    <td><small><?php echo $s['date_operation']; ?></small></td>
+                                    <td><strong><?php echo htmlspecialchars($s['nom'] ?? 'System'); ?></strong></td>
+                                    <td>
+                                        <?php 
+                                        $op = $s['operation'];
+                                        $badge_class = 'badge-blue';
+                                        if (strpos($op, 'blocked') !== false || strpos($op, 'deleted') !== false || strpos($op, 'Suppression') !== false) $badge_class = 'badge-red';
+                                        if (strpos($op, 'Inscription') !== false || strpos($op, 'unblocked') !== false) $badge_class = 'badge-green';
+                                        ?>
+                                        <span class="badge <?php echo $badge_class; ?>" style="font-size: 10px; padding: 3px 8px;">
+                                            <?php echo htmlspecialchars($op); ?>
+                                        </span>
+                                    </td>
+                                    <td><small style="color: #888;"><?php echo date('d/m/Y H:i', strtotime($s['date_operation'])); ?></small></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -166,5 +176,8 @@ $tentatives = $pdo->query("SELECT * FROM tentatives_connexion ORDER BY date_tent
         </div>
     </div>
     <script src="js/script.js"></script>
+        </div> <!-- close page-content -->
+    </div> <!-- close main-layout -->
+</div> <!-- close app-container -->
 </body>
 </html>
