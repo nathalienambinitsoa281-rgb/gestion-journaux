@@ -44,6 +44,7 @@ $journals = $stmt->fetchAll();
             <table>
                 <thead>
                     <tr>
+                        <th data-i18n="visual_label">Aperçu</th>
                         <th data-i18n="journal_number">Numéro</th>
                         <th data-i18n="partie">Partie</th>
                         <th data-i18n="editeur">Editeur</th>
@@ -59,6 +60,11 @@ $journals = $stmt->fetchAll();
                     <?php if (count($journals) > 0): ?>
                         <?php foreach ($journals as $j): ?>
                             <tr>
+                                <td>
+                                    <div style="width: 50px; height: 60px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #ddd;">
+                                        <img src="https://images.unsplash.com/photo-1585829365234-781fcd69186b?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=60" alt="Newspaper" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                </td>
                                 <td><strong><?php echo htmlspecialchars($j['matricule']); ?></strong></td>
                                 <td><span class="badge <?php echo $j['partie'] ? 'badge-orange' : 'badge-blue'; ?>" data-i18n="<?php echo $j['partie'] ?: 'no_partie'; ?>"><?php echo $j['partie'] ?: 'TSISY'; ?></span></td>
                                 <td><strong><?php echo htmlspecialchars($j['editeur']); ?></strong></td>
