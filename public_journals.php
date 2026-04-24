@@ -83,7 +83,7 @@ $journals = $stmt->fetchAll();
                             </tr>
                             <?php if ($j['description']): ?>
                             <tr class="detail-row">
-                                <td colspan="9" style="background: #fdfdfd; font-size: 0.85rem; padding: 10px 20px; border-top: none; color: #666;">
+                                <td colspan="10" style="background: #fdfdfd; font-size: 0.85rem; padding: 10px 20px; border-top: none; color: #666;">
                                     <i data-i18n="details">Note</i>: <?php echo htmlspecialchars($j['description']); ?>
                                 </td>
                             </tr>
@@ -91,11 +91,22 @@ $journals = $stmt->fetchAll();
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="9" style="text-align: center; padding: 40px; color: #999;" data-i18n="no_results">Aucun résultat trouvé.</td>
+                            <td colspan="10" style="text-align: center; padding: 40px; color: #999;" data-i18n="no_results">Aucun résultat trouvé.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
+        </div>
+
+        <div class="container animate" style="margin-top: 60px; padding: 0;">
+            <h3 style="color: var(--primary-blue); margin-bottom: 25px;" data-i18n="visual_archives">Archives Visuelles</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;">
+                <img src="https://images.unsplash.com/photo-1585829365234-781fcd69186b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
+                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
+                <img src="https://images.unsplash.com/photo-1566378246598-5b11a0d486cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
+                <img src="https://images.unsplash.com/photo-1572949645841-3947a407c563?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G4" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G5" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
+            </div>
         </div>
     </div>
 

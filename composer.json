@@ -1,0 +1,7 @@
+{
+    "name": "gestion-journaux/app",
+    "description": "Système de gestion des journaux et des archives",
+    "require": {
+        "php": "^8.0"
+    }
+}
