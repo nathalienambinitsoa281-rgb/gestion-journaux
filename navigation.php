@@ -1,5 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
 $current_page = basename($_SERVER['PHP_SELF']);
 $no_sidebar_pages = ['index.php', 'register.php'];
 $show_sidebar = !in_array($current_page, $no_sidebar_pages);

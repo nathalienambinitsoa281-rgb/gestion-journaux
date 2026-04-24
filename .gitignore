@@ -4,6 +4,7 @@ composer.lock
 .env
 
 # Project specific
+temp_sessions/
 uploads/pdf/*
 !uploads/pdf/.gitkeep
 

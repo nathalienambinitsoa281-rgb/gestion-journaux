@@ -1,6 +1,13 @@
 <?php
 // Session persistent - DOIT ÊTRE AVANT TOUT session_start()
 if (session_status() === PHP_SESSION_NONE) {
+    // Correction pour éviter l'erreur de dossier manquant (C:\xampp\tmp)
+    $session_dir = __DIR__ . DIRECTORY_SEPARATOR . 'temp_sessions';
+    if (!is_dir($session_dir)) {
+        mkdir($session_dir, 0777, true);
+    }
+    session_save_path($session_dir);
+    
     ini_set('session.gc_maxlifetime', 31536000); // 1 an
     session_set_cookie_params(31536000);
     session_start();
