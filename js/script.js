@@ -29,7 +29,7 @@ const translations = {
         action: "Action",
         blocked: "Bloqué",
         active: "Actif",
-        manage_journals: "Gestion des Journaux",
+        manage_journals: "Gestion de journaux CIDST",
         quick_search: "Recherche Rapide",
         statistics: "Statistiques",
         register_journal: "Enregistrer un Journal",
@@ -55,16 +55,16 @@ const translations = {
         login_placeholder: "Entrez votre login...",
         password_label: "Mot de passe :",
         no_account: "Pas encore de compte ?",
-        footer_text: "Ministère de l'Intérieur",
+        footer_text: "CIDST Tsimbazaza",
         error_blocked: "Ce compte est déjà bloqué. Contactez l'administrateur.",
         error_invalid: "Login ou mot de passe incorrect.",
-        title_login: "Connexion - Gestion des Journaux",
-        system_description: "Système de gestion des journaux et des archives.",
+        title_login: "Connexion - CIDST Tsimbazaza",
+        system_description: "Gestion de journaux CIDST Tsimbazaza",
         manage_journals_desc: "Enregistrement de tous les journaux hebdomadaires avec numéro précis.",
         quick_search_desc: "Recherchez toutes les informations par numéro de gazette, éditeur ou date.",
         statistics_desc: "Suivi du nombre de journaux et des activités de tous les utilisateurs.",
-        brand_name: "GESTION JOURNAUX",
-        user_management: "Gestion des Utilisateurs",
+        brand_name: "CIDST TSIMBAZAZA",
+        user_management: "Utilisateurs",
         user_blocked_success: "Utilisateur bloqué avec succès.",
         user_unblocked_success: "Utilisateur débloqué avec succès.",
         user_deleted_success: "Utilisateur supprimé avec succès.",
@@ -82,12 +82,14 @@ const translations = {
         date_col: "Date",
         ip_col: "Adresse IP",
         no_journal_recorded: "Aucun journal enregistré.",
-        register_title: "S'inscrire - Journal Archives",
+        register_title: "S'inscrire - CIDST Tsimbazaza",
         cin_error_12: "Le matricule est requis.",
         cin_already_used: "Ce matricule est déjà utilisé.",
         nom_placeholder: "Nom...",
         prenom_label: "Prénom :",
         prenom_placeholder: "Prénom...",
+        fonction_label: "Fonction / Travail :",
+        fonction_placeholder: "Ce qu'il fait...",
         cin_placeholder: "Matricule...",
         contact_placeholder: "Exemple: +261 34...",
         address_placeholder: "Lieu de résidence...",
@@ -116,10 +118,16 @@ const translations = {
         public_search_placeholder: "Rechercher par éditeur, lieu ou partie...",
         edition_col: "Édition",
         sortie_col: "Sortie",
-        public_archives_nav: "Archives Publics",
+        public_archives_nav: "Archives Publiques",
         unblock_btn: "Débloquer",
         block_btn: "Bloquer",
-        delete_btn: "Supprimer"
+        delete_btn: "Supprimer",
+        types_actes_title: "📑 Types d'actes (Parties)",
+        click_to_view: "Cliquez sur un type de journal pour voir la liste :",
+        total_journals_label: "Total Journaux",
+        institutions_label: "Institutions",
+        view_details: "Cliquer pour voir les détails",
+        list_journals_desc: "Consultez et gérez tous les journaux que vous avez enregistrés."
     },
     en: {
         welcome: "WELCOME",
@@ -151,7 +159,7 @@ const translations = {
         action: "Action",
         blocked: "Blocked",
         active: "Active",
-        manage_journals: "Journal Management",
+        manage_journals: "CIDST Journal Management",
         quick_search: "Quick Search",
         statistics: "Statistics",
         register_journal: "Register New Journal",
@@ -177,15 +185,15 @@ const translations = {
         login_placeholder: "Enter your login...",
         password_label: "Password:",
         no_account: "No account yet?",
-        footer_text: "Ministry of the Interior",
+        footer_text: "CIDST Tsimbazaza",
         error_blocked: "This account is already blocked. Contact Admin.",
         error_invalid: "Invalid Login or Password.",
-        title_login: "Login - Journal Management",
-        system_description: "Journal and archives management system.",
+        title_login: "Login - CIDST Tsimbazaza",
+        system_description: "CIDST Tsimbazaza journal management.",
         manage_journals_desc: "Registration of all weekly journals with precise number.",
         quick_search_desc: "Search all information by gazette number, publisher or date.",
         statistics_desc: "Monitoring the number of journals and activities of all users.",
-        brand_name: "JOURNAL MANAGEMENT",
+        brand_name: "CIDST TSIMBAZAZA",
         user_management: "User Management",
         user_blocked_success: "User blocked successfully.",
         user_unblocked_success: "User unblocked successfully.",
@@ -204,12 +212,14 @@ const translations = {
         date_col: "Date",
         ip_col: "IP Address",
         no_journal_recorded: "No journal recorded.",
-        register_title: "Register - Journal Archives",
+        register_title: "Register - CIDST Tsimbazaza",
         cin_error_12: "Matricule is required.",
         cin_already_used: "This matricule is already used.",
         nom_placeholder: "Last Name...",
         prenom_label: "First Name:",
         prenom_placeholder: "First Name...",
+        fonction_label: "Function / Job:",
+        fonction_placeholder: "What they do...",
         cin_placeholder: "Matricule...",
          contact_placeholder: "Example: +261 34...",
          address_placeholder: "Residence address...",
@@ -241,7 +251,13 @@ const translations = {
         public_archives_nav: "Public Archives",
         unblock_btn: "Unblock",
         block_btn: "Block",
-        delete_btn: "Delete"
+        delete_btn: "Delete",
+        types_actes_title: "📑 Types of Acts (Parts)",
+        click_to_view: "Click on a type of journal to view the list:",
+        total_journals_label: "Total Journals",
+        institutions_label: "Institutions",
+        view_details: "Click to view details",
+        list_journals_desc: "View and manage all the journals you have recorded."
     }
 };
 
@@ -257,37 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
-        });
-    }
-
-    // Sidebar Toggle for Mobile (Optional enhancement)
-    const sidebar = document.querySelector('.sidebar');
-    const mainLayout = document.querySelector('.main-layout');
-    
-    if (window.innerWidth < 768 && sidebar) {
-        // Create a toggle button for mobile if it doesn't exist
-        const toggleBtn = document.createElement('button');
-        toggleBtn.innerHTML = '☰';
-        toggleBtn.className = 'btn';
-        toggleBtn.style.position = 'fixed';
-        toggleBtn.style.bottom = '20px';
-        toggleBtn.style.right = '20px';
-        toggleBtn.style.zIndex = '1002';
-        toggleBtn.style.borderRadius = '50%';
-        toggleBtn.style.width = '50px';
-        toggleBtn.style.height = '50px';
-        toggleBtn.style.padding = '0';
-        toggleBtn.style.fontSize = '24px';
-        
-        document.body.appendChild(toggleBtn);
-        
-        toggleBtn.addEventListener('click', () => {
-            if (sidebar.style.display === 'flex') {
-                sidebar.style.display = 'none';
-            } else {
-                sidebar.style.display = 'flex';
-                sidebar.style.width = '100%';
-            }
         });
     }
 
@@ -334,5 +319,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        // Hide Malagasy elements if language is FR or EN
+        const isMalagasyPage = (lang === 'mg'); // Although we removed 'mg' from selector, just in case
+        document.querySelectorAll('.mg-only').forEach(el => {
+            el.style.display = isMalagasyPage ? '' : 'none';
+        });
+    }
+});
+
+// Real-time search function (AJAX + JSON)
+// Gestion du Sidebar Mobile
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+
+        // Click en dehors pour fermer
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    }
+});
+
+function handleRealTimeSearch(query) {
+    const resultsContainer = document.getElementById('searchResults');
+    if (!query || query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+    }
+
+    fetch(`api_search.php?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                resultsContainer.innerHTML = data.map(item => `
+                    <div class="search-item" style="padding: 12px 15px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.2s;" 
+                         onclick="window.location.href='public_journals.php?search=${item.matricule}'">
+                        <div style="font-weight: 600; color: var(--primary-blue); display: flex; justify-content: space-between;">
+                            <span>N° ${item.matricule}</span>
+                            <span style="font-size: 0.8rem; color: #1f5bb4ff;">${item.date_edition || ''}</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #2731bdff; margin-top: 4px;">${item.editeur}</div>
+                        <div style="font-size: 0.8rem; color: #2648b8ff; font-style: italic;">Partie: ${item.partie || 'N/A'}</div>
+                    </div>
+                `).join('');
+                resultsContainer.style.display = 'block';
+            } else {
+                resultsContainer.innerHTML = '<div style="padding: 15px; text-align: center; color: #64748b;">Aucun résultat trouvé</div>';
+                resultsContainer.style.display = 'block';
+            }
+        })
+        .catch(error => console.error('Error fetching search results:', error));
+}
+
+// Close search results when clicking outside
+document.addEventListener('click', (e) => {
+    const searchContainer = document.querySelector('.search-container');
+    const resultsContainer = document.getElementById('searchResults');
+    if (searchContainer && !searchContainer.contains(e.target)) {
+        resultsContainer.style.display = 'none';
     }
 });

@@ -1,13 +1,11 @@
-# PHP
-vendor/
-composer.lock
-.env
-
-# Project specific
 temp_sessions/
 uploads/pdf/*
 !uploads/pdf/.gitkeep
-
-# OS files
+.env
+*.log
 .DS_Store
 Thumbs.db
+vendor/
+node_modules/
+.idea/
+.vscode/

@@ -8,22 +8,22 @@ if (!isset($_SESSION['user_id'])) {
 
 $id_utilisateur = $_SESSION['user_id'];
 
-// Fafana ny gazety (Delete Journal)
+// Supprimer le journal (Delete Journal)
 if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['id'])) {
     $id_journal = $_GET['id'];
     
-    // Hamarino raha an'ity utilisateur ity ilay gazety
+    // Vérifier si le journal appartient à cet utilisateur
     $stmt_check = $pdo->prepare("SELECT j.fichier_pdf FROM journal j JOIN periodique p ON j.id_journal = p.id_journal WHERE j.id_journal = ? AND p.id_utilisateur = ?");
     $stmt_check->execute([$id_journal, $id_utilisateur]);
     $journal = $stmt_check->fetch();
     
     if ($journal) {
-        // Fafana ny fichier PDF raha misy
+        // Supprimer le fichier PDF s'il existe
         if ($journal['fichier_pdf'] && file_exists($journal['fichier_pdf'])) {
             unlink($journal['fichier_pdf']);
         }
         
-        // Fafana ao amin'ny database
+        // Supprimer de la base de données
         $pdo->prepare("DELETE FROM journal WHERE id_journal = ?")->execute([$id_journal]);
         
         // Log operation
@@ -76,13 +76,13 @@ $journals_list = $stmt->fetchAll();
         <?php endif; ?>
         
         <form action="liste_journaux.php" method="GET" style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: var(--light-grey); padding: 20px; border-radius: 12px;">
-            <div style="flex: 1; min-width: 200px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #666;" data-i18n="search_keyword_label">Mots-clés (Numéro, Éditeur...)</label>
-                <input type="text" name="q" placeholder="Rechercher..." data-i18n="search_placeholder" value="<?php echo htmlspecialchars($search); ?>">
+            <div style="flex: 2; min-width: 250px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #475569;" data-i18n="search_keyword_label">Mots-clés (Numéro, Éditeur...)</label>
+                <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Rechercher..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
             </div>
-            <div style="flex: 1; min-width: 200px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #666;" data-i18n="partie">Partie</label>
-                <select name="partie" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+            <div style="flex: 1; min-width: 150px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #475569;" data-i18n="partie">Partie</label>
+                <select name="partie" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                     <option value="" data-i18n="all_parties">Toutes les parties</option>
                     <option value="part1" <?php echo $partie == 'part1' ? 'selected' : ''; ?> data-i18n="part1">1ère Partie (Lois, Décrets, Arrêtés)</option>
                     <option value="part2" <?php echo $partie == 'part2' ? 'selected' : ''; ?> data-i18n="part2">2ème Partie (Avis, Appels d'offres, Annonces)</option>
@@ -90,9 +90,9 @@ $journals_list = $stmt->fetchAll();
                 </select>
             </div>
             <div style="display: flex; align-items: flex-end;">
-                <button type="submit" class="btn" style="padding: 12px 30px;" data-i18n="search_button">FILTRER</button>
+                <button type="submit" class="btn btn-blue" style="padding: 12px 30px;" data-i18n="search_button">FILTRER</button>
                 <?php if (!empty($search) || !empty($partie)): ?>
-                    <a href="liste_journaux.php" class="btn" style="padding: 12px 20px; margin-left: 10px; background: #dc3545;" data-i18n="clear">Effacer</a>
+                    <a href="liste_journaux.php" class="btn btn-grey" style="padding: 12px 20px; margin-left: 10px;" data-i18n="clear">Effacer</a>
                 <?php endif; ?>
             </div>
         </form>
@@ -107,64 +107,44 @@ $journals_list = $stmt->fetchAll();
                         <th data-i18n="journal_number">Numéro</th>
                         <th data-i18n="partie">Partie</th>
                         <th data-i18n="editeur">Éditeur</th>
-                        <th data-i18n="date_release">Date de sortie</th>
                         <th data-i18n="date_received">Date de réception</th>
-                        <th data-i18n="location">Emplacement</th>
-                        <th data-i18n="price">Prix</th>
-                        <th data-i18n="view_pdf">Fichier</th>
                         <th data-i18n="action_label">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted'): ?>
-                        <div class="badge badge-red" style="display: block; margin-bottom: 20px;">Gazety voafafa soa aman-tsara.</div>
+                        <div class="badge badge-blue" style="display: block; margin-bottom: 20px;">Journal supprimé avec succès.</div>
                     <?php endif; ?>
                     <?php if (isset($_GET['msg']) && $_GET['msg'] == 'updated'): ?>
-                        <div class="badge badge-green" style="display: block; margin-bottom: 20px;">Gazety voahavao soa aman-tsara.</div>
+                        <div class="badge badge-green" style="display: block; margin-bottom: 20px;">Journal mis à jour avec succès.</div>
                     <?php endif; ?>
 
                     <?php foreach ($journals_list as $j): ?>
                     <tr>
                         <td><strong><?php echo htmlspecialchars($j['matricule']); ?></strong></td>
-                        <td><span class="badge badge-orange" data-i18n="<?php echo htmlspecialchars($j['partie']); ?>"><?php echo htmlspecialchars($j['partie']); ?></span></td>
+                        <td><span class="badge badge-grey"><?php echo htmlspecialchars($j['partie']); ?></span></td>
                         <td><?php echo htmlspecialchars($j['editeur']); ?></td>
-                        <td><?php echo htmlspecialchars($j['date_sortie'] ?? '-'); ?></td>
-                        <td><?php echo htmlspecialchars($j['date_reception']); ?></td>
-                        <td><?php echo htmlspecialchars($j['lieu_stockage']); ?></td>
-                        <td><strong><?php echo $j['prix'] ? number_format($j['prix'], 2, ',', ' ') . ' Ar' : '-'; ?></strong></td>
+                        <td><?php echo date('d/m/Y', strtotime($j['date_reception'])); ?></td>
                         <td>
-                            <?php if ($j['fichier_pdf']): ?>
-                                <a href="<?php echo htmlspecialchars($j['fichier_pdf']); ?>" target="_blank" class="badge badge-blue" style="text-decoration: none;">📄 PDF</a>
-                            <?php else: ?>
-                                -
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <div style="display: flex; gap: 5px;">
-                                <a href="edit_journal.php?id=<?php echo $j['id_journal']; ?>" 
-                                   class="btn" 
-                                   style="background-color: #ffc107; padding: 5px 10px; font-size: 11px; color: #000;">
-                                    ✏️
-                                </a>
-                                <a href="?action=delete&id=<?php echo $j['id_journal']; ?>" 
-                                   onclick="return confirm('Tena ho fafana tokoa ve ity gazety ity?')" 
-                                   class="btn" 
-                                   style="background-color: #dc3545; padding: 5px 10px; font-size: 11px;">
-                                    🗑️
-                                </a>
-                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <?php if ($j['fichier_pdf']): ?>
+                                    <a href="<?php echo htmlspecialchars($j['fichier_pdf']); ?>" target="_blank" class="btn btn-grey" style="padding: 5px 12px; font-size: 11px;">📄 PDF</a>
+                                <?php endif; ?>
+                                <a href="edit_journal.php?id=<?php echo $j['id_journal']; ?>" class="btn btn-blue" style="padding: 5px 12px; font-size: 11px;">Modifier</a>
+                                 <a href="?action=delete&id=<?php echo $j['id_journal']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce journal ?')" class="btn btn-red" style="padding: 5px 12px; font-size: 11px;">Supprimer</a>
+                             </div>
                         </td>
                     </tr>
                     <?php if ($j['description']): ?>
                     <tr>
-                        <td colspan="9" style="background: #f9f9f9; font-size: 0.85rem; padding: 10px 20px; border-top: none;">
+                        <td colspan="5" style="background: #f9f9f9; font-size: 0.85rem; padding: 10px 20px; border-top: none;">
                             <i data-i18n="details">Note</i>: <?php echo htmlspecialchars($j['description']); ?>
                         </td>
                     </tr>
                     <?php endif; ?>
                     <?php endforeach; ?>
                     <?php if (empty($journals_list)): ?>
-                    <tr><td colspan="9" style="text-align: center; padding: 30px; color: #888;" data-i18n="no_journal_recorded">Aucun journal enregistré.</td></tr>
+                    <tr><td colspan="5" style="text-align: center; padding: 30px; color: #888;" data-i18n="no_journal_recorded">Aucun journal enregistré.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -175,8 +155,8 @@ $journals_list = $stmt->fetchAll();
         </div>
     </div>
     
-    <footer style="margin-top: 50px; padding: 40px; text-align: center; color: #888;">
-        &copy; <?php echo date('Y'); ?> - <span data-i18n="footer_text">Ministère de l'Intérieur</span>
+    <footer style="margin-top: 50px; padding: 40px; text-align: center; color: #243ba3ff;">
+        &copy; <?php echo date('Y'); ?> - <span data-i18n="footer_text">CIDST Tsimbazaza</span>
     </footer>
     <script src="js/script.js"></script>
         </div> <!-- close page-content -->

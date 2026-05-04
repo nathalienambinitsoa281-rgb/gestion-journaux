@@ -31,12 +31,12 @@ $journals = $stmt->fetchAll();
     <?php include 'navigation.php'; ?>
     <div class="container animate">
         <h2 style="text-align: center; color: var(--primary-blue);" data-i18n="public_archives">ARCHIVES PUBLIQUES</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 40px;" data-i18n="public_archives_desc">Recherche et consultation de tous les journaux enregistrés.</p>
+        <p style="text-align: center; color: #4056a1ff; margin-bottom: 40px;" data-i18n="public_archives_desc">Recherche et consultation de tous les journaux enregistrés.</p>
         
         <div style="margin-bottom: 30px; background: var(--light-grey); padding: 25px; border-radius: 12px;">
             <form action="" method="GET">
-                <label style="display: block; margin-bottom: 10px; font-weight: 600; font-size: 14px; color: #666;" data-i18n="quick_search_label">Recherche rapide :</label>
-                <input type="text" name="search" class="search-input" placeholder="Rechercher par éditeur, lieu ou partie..." data-i18n="public_search_placeholder" value="<?php echo htmlspecialchars($search); ?>">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600; font-size: 14px; color: #475569;" data-i18n="quick_search_label">Recherche rapide :</label>
+                <input type="text" name="search" id="publicSearch" class="search-input" value="<?php echo htmlspecialchars($search); ?>" placeholder="Numéro, éditeur, date, description..." style="width: 100%; padding: 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; box-shadow: 0 2px 10px rgba(21, 101, 192, 0.05);">
             </form>
         </div>
 
@@ -44,7 +44,6 @@ $journals = $stmt->fetchAll();
             <table>
                 <thead>
                     <tr>
-                        <th data-i18n="visual_label">Aperçu</th>
                         <th data-i18n="journal_number">Numéro</th>
                         <th data-i18n="partie">Partie</th>
                         <th data-i18n="editeur">Editeur</th>
@@ -60,22 +59,17 @@ $journals = $stmt->fetchAll();
                     <?php if (count($journals) > 0): ?>
                         <?php foreach ($journals as $j): ?>
                             <tr>
-                                <td>
-                                    <div style="width: 50px; height: 60px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #ddd;">
-                                        <img src="https://images.unsplash.com/photo-1585829365234-781fcd69186b?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=60" alt="Newspaper" style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
-                                </td>
                                 <td><strong><?php echo htmlspecialchars($j['matricule']); ?></strong></td>
-                                <td><span class="badge <?php echo $j['partie'] ? 'badge-orange' : 'badge-blue'; ?>" data-i18n="<?php echo $j['partie'] ?: 'no_partie'; ?>"><?php echo $j['partie'] ?: 'TSISY'; ?></span></td>
+                                <td><span class="badge <?php echo $j['partie'] ? 'badge-grey' : 'badge-blue-dark'; ?>" data-i18n="<?php echo $j['partie'] ?: 'no_partie'; ?>"><?php echo $j['partie'] ?: 'TSISY'; ?></span></td>
                                 <td><strong><?php echo htmlspecialchars($j['editeur']); ?></strong></td>
                                 <td><?php echo $j['date_edition'] ? date('d/m/Y', strtotime($j['date_edition'])) : '-'; ?></td>
                                 <td><?php echo $j['date_sortie'] ? date('d/m/Y', strtotime($j['date_sortie'])) : '-'; ?></td>
                                 <td><?php echo htmlspecialchars($j['lieu_stockage']); ?></td>
                                 <td><strong><?php echo $j['prix'] ? number_format($j['prix'], 2, ',', ' ') . ' Ar' : '-'; ?></strong></td>
-                                <td style="color: #888; font-size: 0.85rem;"><?php echo date('d/m/Y H:i', strtotime($j['date_reception'])); ?></td>
+                                <td style="color: #1d328dff; font-size: 0.85rem;"><?php echo date('d/m/Y H:i', strtotime($j['date_reception'])); ?></td>
                                 <td>
                                     <?php if ($j['fichier_pdf']): ?>
-                                        <a href="<?php echo htmlspecialchars($j['fichier_pdf']); ?>" target="_blank" class="badge badge-blue" style="text-decoration: none;">📄 PDF</a>
+                                        <a href="<?php echo htmlspecialchars($j['fichier_pdf']); ?>" target="_blank" class="badge badge-grey" style="text-decoration: none;">📄 PDF</a>
                                     <?php else: ?>
                                         -
                                     <?php endif; ?>
@@ -98,20 +92,10 @@ $journals = $stmt->fetchAll();
             </table>
         </div>
 
-        <div class="container animate" style="margin-top: 60px; padding: 0;">
-            <h3 style="color: var(--primary-blue); margin-bottom: 25px;" data-i18n="visual_archives">Archives Visuelles</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;">
-                <img src="https://images.unsplash.com/photo-1585829365234-781fcd69186b?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G1" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
-                <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G2" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
-                <img src="https://images.unsplash.com/photo-1566378246598-5b11a0d486cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G3" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
-                <img src="https://images.unsplash.com/photo-1572949645841-3947a407c563?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G4" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
-                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="G5" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; border: 3px solid white; box-shadow: var(--shadow);">
-            </div>
-        </div>
     </div>
 
-    <footer style="margin-top: 50px; padding: 40px; text-align: center; color: #888;">
-        &copy; <?php echo date('Y'); ?> - <span data-i18n="public_archives">Archives Publiques</span> - <span data-i18n="footer_text">Ministère de l'Intérieur</span>
+    <footer style="margin-top: 50px; padding: 40px; text-align: center; color: #64748b;">
+        &copy; <?php echo date('Y'); ?> - <span data-i18n="public_archives">Archives Publiques</span> - <span data-i18n="footer_text">CIDST Tsimbazaza</span>
     </footer>
 
     <script src="js/script.js"></script>

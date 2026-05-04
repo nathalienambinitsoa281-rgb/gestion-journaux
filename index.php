@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $admin = $stmt->fetch();
 
     if ($admin && ($password === $admin['mot_de_passe'] || password_verify($password, $admin['mot_de_passe']))) {
-        // Raha mbola plain text ilay mot de passe dia ovaina ho hash (Auto-update security)
+        // Si le mot de passe est encore en texte clair, le hacher (Auto-update security)
         if ($password === $admin['mot_de_passe'] && !password_get_info($admin['mot_de_passe'])['algo']) {
             $new_hash = password_hash($password, PASSWORD_DEFAULT);
             $update_stmt = $pdo->prepare("UPDATE admin_logiciel SET mot_de_passe = ? WHERE id_admin = ?");
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['admin_id'] = $admin['id_admin'];
         $_SESSION['admin_login'] = $admin['login'];
-        header("Location: admin_dashboard.php");
+        header("Location: home.php");
         exit();
     }
 
@@ -50,7 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['user_id'] = $user['id_utilisateur'];
             $_SESSION['user_nom'] = $user['nom'] . ' ' . $user['prenom'];
-            header("Location: user_dashboard.php");
+            $_SESSION['user_fonction'] = $user['fonction'];
+            header("Location: home.php");
             exit();
         }
     } else {
@@ -66,38 +67,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title_login">Connexion - Gestion des Journaux</title>
+    <title data-i18n="title_login">Connexion - CIDST Tsimbazaza</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body class="animate">
     <?php include 'navigation.php'; ?>
-    <div class="container animate" style="max-width: 450px; margin-top: 60px;">
-        <h2 style="text-align: center;" data-i18n="login">CONNEXION</h2>
-        
-        <?php if ($error): ?>
-            <div class="badge badge-red" style="display: block; margin-bottom: 25px; text-align: center; padding: 12px;"><?php echo $error; ?></div>
-        <?php endif; ?>
+    <div style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div class="container animate" style="max-width: 450px; width: 100%; margin: 0;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <?php if (file_exists('img/logo_cidst.png')): ?>
+                    <img src="img/logo_cidst.png" alt="Logo CIDST" style="max-height: 100px; width: auto; margin-bottom: 10px;">
+                <?php else: ?>
+                    <span style="font-size: 5rem;">📖</span>
+                <?php endif; ?>
+            </div>
+            <h2 style="text-align: center; border-left: none; padding-left: 0;" data-i18n="login">CONNEXION</h2>
+            
+            <?php if ($error): ?>
+                <div class="badge badge-red" style="display: block; margin-bottom: 25px; text-align: center; padding: 12px;"><?php echo $error; ?></div>
+            <?php endif; ?>
 
-        <form action="" method="POST">
-            <div class="form-group">
-                <label data-i18n="login_label">Login (Matricule ou Admin) :</label>
-                <input type="text" name="login" placeholder="Entrez votre login..." data-i18n="login_placeholder" required>
-            </div>
-            <div class="form-group">
-                <label data-i18n="password_label">Mot de passe :</label>
-                <input type="password" name="password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;" data-i18n="login">SE CONNECTER</button>
-        </form>
-        
-        <div style="text-align: center; margin-top: 30px; font-size: 14px; color: #666;">
-            <span data-i18n="no_account">Pas encore de compte ?</span> <a href="register.php" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;" data-i18n="register">S'inscrire</a>
+            <div class="glass-card">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label data-i18n="login_label">Login (Matricule ou Admin) :</label>
+                        <input type="text" name="login" placeholder="Entrez votre login..." data-i18n="login_placeholder" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="password_label">Mot de passe :</label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-blue" style="width: 100%; margin-top: 10px;" data-i18n="login">SE CONNECTER</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 30px; font-size: 14px; color: #475569;">
+                    <span data-i18n="no_account">Pas encore de compte ?</span> <a href="register.php" style="color: var(--primary-blue); font-weight: 700; text-decoration: none;" data-i18n="register">S'inscrire</a>
+                    <br><br>
+                    <span data-i18n="footer_text">CIDST Tsimbazaza</span>
+                </div>
+            </form>
         </div>
     </div>
-    
-    <footer style="position: fixed; bottom: 20px; width: 100%; text-align: center; color: #888; font-size: 12px;">
-        &copy; <?php echo date('Y'); ?> - <span data-i18n="footer_text">Ministère de l'Intérieur</span>
+
+    <footer style="position: fixed; bottom: 20px; width: 100%; text-align: center; color: #64748b; font-size: 12px;">
+        &copy; <?php echo date('Y'); ?> - <span data-i18n="brand_name">CIDST Tsimbazaza</span>
     </footer>
     <script src="js/script.js"></script>
         </div> <!-- close page-content -->

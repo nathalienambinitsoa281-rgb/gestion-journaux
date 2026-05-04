@@ -20,6 +20,7 @@ CREATE TABLE `utilisateur` (
   `adresse` varchar(255) DEFAULT NULL,
   `contact` varchar(50) DEFAULT NULL,
   `matricule` varchar(50) NOT NULL,
+  `fonction` varchar(100) DEFAULT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `est_bloque` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id_utilisateur`),
@@ -43,7 +44,7 @@ CREATE TABLE `admin_logiciel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `admin_logiciel` (`login`, `nom`, `mot_de_passe`) VALUES
-('cidst92', 'acquisition', 'na19jo2004');
+('cidst tsimbazaza', 'CIDST Admin', '$2y$10$SE0FRg/nlhW6rq3b7pKX/.mxCuSkPNBcDLcDVEO62dsqgrgYV1s8.'); -- Mot de passe: acquisition92
 
 -- --------------------------------------------------------
 
@@ -64,8 +65,7 @@ CREATE TABLE `journal` (
   `fichier_pdf` varchar(255) DEFAULT NULL,
   `prix` decimal(10,2) DEFAULT NULL,
   `description` text DEFAULT NULL,
-  PRIMARY KEY (`id_journal`),
-  UNIQUE KEY `matricule` (`matricule`)
+  PRIMARY KEY (`id_journal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
